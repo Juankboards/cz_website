@@ -31,9 +31,10 @@
     width: 350px;
     height: 100%;
     position:fixed;
+    z-index: 5555;
   }
 
-  header div {
+  header > div {
     width: 85px;
     height: 85px;
     position: absolute;
@@ -52,6 +53,7 @@
     list-style: none;
     padding: 0;
     position: absolute;
+    transition: all 0.7s;
   }
 
   header ul li {
@@ -89,6 +91,10 @@
     animation: .20s forwards focus-v linear;
     animation-fill-mode: forwards;
     display: block;
+  }
+
+  header button {
+    display: none;
   }
 
   section {
@@ -153,7 +159,7 @@
   }
 
   section .grayscale {
-    filter: grayscale(85%);
+    filter: grayscale(98%);
   }
 
   section a div {
@@ -183,6 +189,15 @@
       }
   }
 
+  @keyframes color-responsive-v {
+    0% {
+        color: #050505;
+      }
+    100% {      
+      color: #FEFEFE; 
+      }
+  }
+
   @keyframes focus-v {
     0% {
         transform: scaleX(1.05);
@@ -204,6 +219,112 @@
         transform: scaleX(1.05);
       }
   }
+
+  @media 
+(-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi), (max-width: 57em) { 
+    section {
+      width: 100%;
+      padding: 110px 20px 20px;
+    }
+
+    header {
+      width: 100%;
+      height: 100px;;
+      position:fixed;
+    }
+
+    header > div {
+      width: 65px;
+      height: 65px;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
+
+    header ul {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,.98);
+      text-align: center;
+      vertical-align: bottom;
+      margin: 0;
+      display: none;
+    }
+
+    header ul div{
+      width: 100%;
+      position: absolute;
+      bottom: 55%;
+      transform: translateY(50%);
+    }
+
+    header ul li > a:before {
+        width: 40%;
+        left: 30%;
+    }
+
+    header ul li {
+      font-size: 35px;
+    }
+
+    header ul li a {
+        letter-spacing: 3px;
+    }
+
+    header > div.nav-icon {
+      left: unset;
+      right: 0;
+    }
+    
+    header button {
+      position: absolute;
+      display: block;
+      top: 25px;
+      right: 20px;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      width: 35px;
+      height: 45px;
+      padding: 0;
+    }
+
+    header button:focus {
+      outline: none;
+    }
+
+    header button:focus {
+      outline: none;
+    }
+
+    header button #burguer-icon, header button #burguer-icon1, header button #burguer-icon2 {
+      height: 1px;
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      right: 0;
+      background-color: #050505;
+      margin: auto; 
+      -webkit-transition: width 0.3s; /* For Safari 3.1 to 6.0 */
+      transition: width 0.3s ease;
+    }
+
+    header button #burguer-icon1 {
+      top: calc(50% - 10px);
+    }
+
+    header button #burguer-icon2 {
+      top: calc(50% + 10px);
+    }
+
+    header ul li > a:focus {
+      animation: .15s forwards color-responsive-v linear;
+    }
+  }
   
 </style>
 <body class="bg--blue">
@@ -215,13 +336,20 @@
       </a>
     </div>
     <!--navigation list-->
-    <ul>
-      <li><a href="#">Portraits</a></li>
-      <li><a href="#">Fashion</a></li>
-      <li><a href="#">Music</a></li>
-      <li><a href="#">Press</a></li>
-      <li><a href="#">About</a></li>
+    <ul id="navigation-list">
+      <div>
+        <li><a href="#">Portraits</a></li>
+        <li><a href="#">Fashion</a></li>
+        <li><a href="#">Music</a></li>
+        <li><a href="#">Press</a></li>
+        <li><a href="#">About</a></li>
+      </div>
     </ul>
+    <button onclick="toggleNav()">
+      <span id="burguer-icon1"></span>
+      <span id="burguer-icon"></span>
+      <span id="burguer-icon2"></span>
+    </button>
   </header>
   <section>
     <div class="col-60 col-left" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
@@ -313,6 +441,43 @@
   function setOriginalImg(node) {
       clearTimeout(delayLoop);
       node.style.backgroundImage = "url(img/" + node.id + ".jpg)";
+  }
+
+  function toggleNav() {
+    var navigation = document.getElementById("navigation-list");
+    var iconTop = document.getElementById("burguer-icon1");
+    var iconCenter = document.getElementById("burguer-icon");
+    var iconButtom = document.getElementById("burguer-icon2");
+
+    if(!navigation.style.display || navigation.style.display=='none') {
+      navigation.style.display = 'block';
+          
+      iconTop.style.top = '50%';
+      iconTop.style.transform = "rotate(45deg)";
+      iconTop.style.transition = "all 0.3s";
+
+      iconButtom.style.top = '50%';
+      iconButtom.style.transform = "rotate(-45deg)";
+      iconButtom.style.transition = "all 0.3s";
+
+      iconCenter.style.transform = "rotate(-45deg)";
+      iconCenter.style.opacity = "0";
+      iconCenter.style.transition = "all 0.3s";
+    } else {
+      navigation.style.display = 'none';
+          
+      iconTop.style.top = 'calc(50% - 10px)';
+      iconTop.style.transform = "rotate(0deg)";
+      iconTop.style.transition = "all 0.3s";
+
+      iconButtom.style.top = 'calc(50% + 10px)';
+      iconButtom.style.transform = "rotate(0deg)";
+      iconButtom.style.transition = "all 0.3s";
+
+      iconCenter.style.transform = "rotate(0deg)";
+      iconCenter.style.opacity = "1";
+      iconCenter.style.transition = "all 0.3s";
+    }
   }
 
   function loadImages(group, images) {
