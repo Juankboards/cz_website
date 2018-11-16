@@ -233,12 +233,15 @@
       }
   }
 
-  @media 
-(-webkit-min-device-pixel-ratio: 2), 
-(min-resolution: 192dpi), (max-width: 57em) { 
+  @media (-webkit-min-device-pixel-ratio: 2), 
+  (min-resolution: 192dpi), (max-width: 57em) { 
     section {
       width: 100%;
       padding: 11em 20px 20px;
+    }
+
+    section a {
+      font-size: 2.5em;
     }
 
     header {
@@ -305,9 +308,6 @@
       width: 7em;
       height: 8em;
       padding: 0;
-    }
-
-    header button:focus {
       outline: none;
     }
 
@@ -325,6 +325,7 @@
       margin: auto; 
       -webkit-transition: width 0.3s; /* For Safari 3.1 to 6.0 */
       transition: width 0.3s ease;
+      outline: none;
     }
 
     header button #burguer-icon1 {
