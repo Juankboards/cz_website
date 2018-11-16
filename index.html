@@ -211,6 +211,19 @@
       }
   }
 
+  @keyframes focus-responsive-v {
+    0% {
+        transform: scaleX(1.05);
+        height: 5px;
+        top: 55%;
+      }
+    100% {      
+      transform: scaleX(1.05); 
+      height: 1.5em;
+      top: 1px;
+      }
+  }
+
   @keyframes hover-v {
     0% {
         transform: scaleX(0);
@@ -230,8 +243,9 @@
 
     header {
       width: 100%;
-      height: 10em;;
+      height: 11em;;
       position:fixed;
+      background: #FEFEFE;
     }
 
     header > div {
@@ -268,7 +282,7 @@
     }
 
     header ul li {
-      font-size: 35px;
+      font-size: 5em;
     }
 
     header ul li a {
@@ -324,6 +338,11 @@
     header ul li > a:focus {
       animation: .15s forwards color-responsive-v linear;
     }
+
+    header ul li > a:focus:before {
+      animation: .20s forwards focus-responsive-v linear;
+    }
+
   }
   
 </style>
