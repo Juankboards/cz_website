@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CZAUDIOVISUAL</title>
+	<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700" rel="stylesheet">
+</head>
+<body class="bg--blue">
+  <header>
+    <!--Logo-->
+    <div>
+      <a href="#">
+        <img src="img/logo.png" alt="Placeholder logo">
+      </a>
+    </div>
+    <!--navigation list-->
+    <ul>
+      <li><a href="#">Portraits</a></li>
+      <li><a href="#">Fashion</a></li>
+      <li><a href="#">Music</a></li>
+      <li><a href="#">Press</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </header>
+  <section>
+    <div class="col-60 col-left" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
+      <div class="group-wrapper">
+        <a style="background-image: url('img/about.jpg')" id="about" href="#">
+          <div>
+            <h2>About</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-40 col-right" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
+      <div class="group-wrapper">
+        <a style="background-image: url('img/fashion.jpg')" id="fashion" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
+          <div>
+            <h2>Fashion</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-40 col-left" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
+      <div class="group-wrapper">
+        <a style="background-image: url('img/portraits.jpg')" id="portraits" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
+          <div>
+            <h2>Portraits</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-60 col-right" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
+      <div class="group-wrapper">
+        <a style="background-image: url('img/music.jpg')" id="music" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
+          <div>
+            <h2>Music</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-100" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
+      <div class="group-wrapper">
+        <a style="background-image: url('img/press.jpg')" id="press" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
+          <div>
+            <h2>Press</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+</body>
+<script src="index.js"></script>
+</html>
