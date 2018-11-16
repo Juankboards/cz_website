@@ -3,9 +3,134 @@
 <head>
 	<meta charset="UTF-8">
 	<title>CZAUDIOVISUAL</title>
-	<link rel="stylesheet" href="style.css" media="none" onload="if(media!='all')media='all'">
+	<!--<link rel="stylesheet" href="style.css" media="none" onload="if(media!='all')media='all'">-->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700" media="none" onload="if(media!='all')media='all'" rel="stylesheet">
 </head>
+<style>
+  * {
+  box-sizing: border-box;
+  font-family: 'Open Sans Condensed', sans-serif;
+
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  background-color: #FEFEFE;
+}
+
+a {
+  text-decoration: none;
+  color: #050505;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 38px;
+  letter-spacing: 2px;
+}
+
+header {
+  width: 350px;
+  height: 100%;
+  position:fixed;
+}
+
+header div {
+  width: 85px;
+  height: 85px;
+  position: absolute;
+  top: 45px;
+  left: 45px;
+}
+
+header img {
+  width: 100%;
+}
+
+header ul {
+  position: absolute;
+  top: 170px;
+  left: 85px;
+  list-style: none;
+  padding: 0;
+}
+
+section {
+  width: cal(100% - 400px);
+  min-height: 100%;
+  padding-left: 350px;
+}
+
+section > div {
+  padding: 8px;
+}
+
+.group-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden
+}
+
+section .col-100 {
+  width: 100%;
+  display: inline-block;
+}
+
+section .col-60 {
+  width: 60%;
+}
+
+section .col-40 {
+  width: 40%;
+}
+
+.col-left {
+  float: left;
+}
+
+.col-right {
+  float: right;
+}
+
+section a {
+  display: block;
+  width: 100%;
+  background-size: cover;
+  background-position: center center;
+  height: 45vh;
+  color: #FEFEFE;
+  transition: all .3s;
+}
+
+section > div:hover a#about {
+  transform: scale(1.2);
+  transition: all .3s;
+}
+
+section > div:hover a h2{
+  display: none;
+  transition: all .3s;
+}
+
+section .grayscale {
+  filter: grayscale(85%);
+}
+
+section a div {
+  display: inline-block;
+  max-width: 340px;
+  pointer-events: none;
+  position: relative;
+  padding: 20px;
+  top: 15px;
+  left: 15px;
+}
+
+section h2 {
+  margin: 0;
+  transition: all .3s;
+}
+</style>
 <body class="bg--blue">
   <header>
     <!--Logo-->
@@ -71,5 +196,49 @@
     </div>
   </section>
 </body>
-<script src="index.js" async></script>
+<script>
+  var delayLoop;
+
+function addClass(node, options) {
+    var classes = node.className.split(" ");
+    options.forEach(function(classToAdd) {
+        if(!classes.includes(classToAdd))
+            node.className += " " + classToAdd;
+        })
+}
+
+function removeClass(node, options) {
+    var classes = node.className.split(" ").filter(function(clss) {
+        return !options.includes(clss);
+    });
+
+    node.className = classes.join(" ");
+}
+
+function modifySiblings(siblings, calledNode, modification, options) {
+    siblings.forEach(function(node) {
+        if(node.nodeType==1 && node!=calledNode) {
+            modification(node, options);
+        }
+    })
+}
+
+function loopFunction(node, counter, fn, options) {
+    if(!counter)
+        return;
+    
+    console.log(counter)
+    fn(node, counter, options);
+    delayLoop = setTimeout(loopFunction.bind(this,node, counter - 1, fn, options), 500);
+}
+
+function changeImg(node, counter, options) {
+    node.style.backgroundImage = "url(img/" + node.id + "/" +node.id + counter + ".jpg)";
+}
+
+function setOriginalImg(node) {
+    clearTimeout(delayLoop);
+    node.style.backgroundImage = "url(img/" + node.id + ".jpg)";
+}
+</script>
 </html>
