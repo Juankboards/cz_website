@@ -22,7 +22,6 @@
   a {
     text-decoration: none;
     color: #050505;
-    font-size: 22px;
     font-weight: bold;
     line-height: 38px;
     letter-spacing: 2px;
@@ -52,12 +51,51 @@
     left: 85px;
     list-style: none;
     padding: 0;
+    position: absolute;
+  }
+
+  header ul li {
+    margin-top: 15px;
+    font-size: 26px;
+    position: relative;
+  }
+
+  header ul li > a:before {
+    content: "";
+    background: linear-gradient(120deg, #8fd3f4 15%, #FF00FF 100%);
+    position: absolute;
+    top: 53%;
+    width: 100%;
+    height: 5px;
+    transform: scaleX(0);
+    animation-fill-mode: forwards;
+    z-index: -10;
+    display: none;
+  }
+
+  header ul li > a:focus {
+    animation: .15s forwards color-v linear;
+    animation-fill-mode: forwards;
+  }
+
+  header ul li > a:hover:before{
+    animation: .15s forwards hover-v linear;
+    animation-fill-mode: forwards;
+    display: block;
+  }
+
+  header ul li > a:focus:before {
+    animation: .20s forwards focus-v linear;
+    animation-fill-mode: forwards;
+    display: block;
   }
 
   section {
     width: cal(100% - 400px);
+    max-width: 1500px;
     min-height: 100%;
     padding-left: 350px;
+    margin: 0 auto;
   }
 
   section > div {
@@ -73,6 +111,7 @@
   section .col-100 {
     width: 100%;
     display: inline-block;
+    height: 30vh;
   }
 
   section .col-60 {
@@ -96,9 +135,10 @@
     width: 100%;
     background-size: cover;
     background-position: center center;
-    height: 45vh;
+    height: 35vh;
     color: #FEFEFE;
     transition: all .3s;
+    font-size: 20px;
   }
 
   section > div:hover a#about {
@@ -129,6 +169,41 @@
     margin: 0;
     transition: all .3s;
   }
+  @keyframes color-v {
+    0% {
+        color: #050505;
+        text-align: left;
+        margin-left: 0px;
+      }
+    100% {      
+      color: #FEFEFE;
+      text-align: right;
+      margin-left: 30px;
+      }
+  }
+
+  @keyframes focus-v {
+    0% {
+        transform: scaleX(1.05);
+        height: 5px;
+        top: 55%;
+      }
+    100% {      
+      transform: scaleX(1.05); 
+      height: 45px;
+      top: -2px;
+      }
+  }
+
+  @keyframes hover-v {
+    0% {
+        transform: scaleX(0);
+      }
+    100% {   
+        transform: scaleX(1.05);
+      }
+  }
+  
 </style>
 <body class="bg--blue">
   <header>
@@ -227,7 +302,7 @@
           return;
       
       fn(node, counter, options);
-      delayLoop = setTimeout(loopFunction.bind(this,node, counter - 1, fn, options), 500);
+      delayLoop = setTimeout(loopFunction.bind(this,node, counter - 1, fn, options), 350);
   }
 
   function changeImg(node, counter, options) {
@@ -251,7 +326,7 @@
     }
     loadImg(index);
   }
-  
+
   loadImages('fashion',['fashion1.jpg','fashion2.jpg','fashion3.jpg','fashion4.jpg','fashion5.jpg']);
   loadImages('portraits',['portraits1.jpg','portraits2.jpg','portraits3.jpg','portraits4.jpg','portraits5.jpg']);
   loadImages('press',['press1.jpg','press2.jpg','press3.jpg','press4.jpg','press5.jpg']);
