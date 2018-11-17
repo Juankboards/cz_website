@@ -110,14 +110,48 @@
     padding: 8px;
   }
 
+  section .bio-wrapper {
+    width: 100%;
+    display: block;
+    height: 100%;
+    margin: 0 auto;
+    max-width: unset;
+    position: fixed;
+    top: 0;
+    left: 0;
+    text-align: center;
+    font-size: .85em;
+    line-height: 20px;
+    letter-spacing: 3px;
+    display: none;
+    background-color: rgba(0,0,0,.6)
+  }
+
+  section .bio:hover .bio-wrapper {
+    display: block;
+    transition: all 5s;
+  }
+
   .group-wrapper {
     width: 100%;
     height: 100%;
     overflow: hidden
   }
 
-  section .col-100 {
-    width: 100%;
+  section .col-20 {
+    width: 20%;
+    display: inline-block;
+    height: 30vh;
+  }
+
+  section .col-33 {
+    width: 33%;
+    display: inline-block;
+    height: 30vh;
+  }
+
+  section .col-80 {
+    width: 80%;
     display: inline-block;
     height: 30vh;
   }
@@ -142,7 +176,7 @@
     display: block;
     width: 100%;
     background-size: cover;
-    background-position: center center;
+    background-position: right center;
     height: 35vh;
     color: #FEFEFE;
     transition: all .3s;
@@ -373,7 +407,10 @@
     </button>
   </header>
   <section>
-    <div class="col-60 col-left" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
+    <div class="bio-wrapper">
+      <p>Passionate photographer and filmmaker from Colombia located in the Greater New York City Area. His career started as a photojournalist where he developed a talent to capture life moments and peoples best facets. A versatile artist with experience capturing artists like Mau y Ricky, Sebastian Yatra, J Balvin, Karol G , Anuel AA, Ozuna and celebrities like Cardi B, Kendall Jenner and much more.  Always open to collaborate with fellow artists and continuing to enjoy the streets of NYC and grow professionally.</p>
+    </div>
+    <div class="col-60 col-left bio" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
       <div class="group-wrapper">
         <a style="background-image: url('img/about.jpg')" id="about" href="#">
           <div>
@@ -409,7 +446,25 @@
         </a>
       </div>
     </div>
-    <div class="col-100" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
+    <div class="col-33 col-left" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
+      <div class="group-wrapper">
+        <a style="background-image: url('img/events.jpg')" id="events" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
+          <div>
+            <h2>Events</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-33 col-left" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
+      <div class="group-wrapper">
+        <a style="background-image: url('img/weddings.jpg')" id="weddings" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
+          <div>
+            <h2>Weddings</h2>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="col-33 col-left" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
       <div class="group-wrapper">
         <a style="background-image: url('img/press.jpg')" id="press" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
           <div>
@@ -518,5 +573,6 @@
   loadImages('portraits',['portraits1.jpg','portraits2.jpg','portraits3.jpg','portraits4.jpg','portraits5.jpg']);
   loadImages('press',['press1.jpg','press2.jpg','press3.jpg','press4.jpg','press5.jpg']);
   loadImages('music',['music1.jpg','music2.jpg','music3.jpg','music4.jpg','music5.jpg']);
+  loadImages('events',['events1.jpg','events2.jpg','events3.jpg','events4.jpg','events5.jpg']);
 </script>
 </html>
