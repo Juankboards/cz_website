@@ -518,7 +518,7 @@
       const parentDiv = createDOMElement({ type: "div", attributes: { className: classes[classId] } })
       const wrapperDiv = createDOMElement({ type: "div", attributes: { className: "group-wrapper" } })
       const innerA = createDOMElement({ type: "a", attributes: { style: `background-image: url('${album.photos[0] || "https://via.placeholder.com/450/000000\
-      "}')`, id: `${ album.name }-${ id }` } , innerHTML: `<div><h2>${album.name}</h2></div>` })
+      "}')`, id: `${ album.name }-${ id }` } , innerHTML: `<div><h2>${album.name.toUpperCase()}</h2></div>` })
       wrapperDiv.insertBefore(innerA, null)
       parentDiv.insertBefore(wrapperDiv, null)
       parentDiv.addEventListener("mouseover", modifySiblings.bind(null, addClass, ['grayscale']))
@@ -544,7 +544,7 @@
     function generateAlbumPage(album) {
       const parentDiv = createDOMElement({ type: "div", attributes: { className: "albumPage" } })
       const wrapperDiv = createDOMElement({ type: "div", attributes: { className: "page-wrapper" } })
-      const h2 = createDOMElement({ type: "h2", attributes: { className: "page-title" }, innerHTML: album.name })
+      const h2 = createDOMElement({ type: "h2", attributes: { className: "page-title" }, innerHTML: album.name.toUpperCase() })
       const description = createDOMElement({ type: "p", attributes: { className: "page-description" }, innerHTML: album.description })
       const wrapperImgs = createDOMElement({ type: "div", attributes: { className: "imgs-wrapper" } })
       album.photos.forEach(img => {
@@ -581,7 +581,7 @@
 
     function generateNav(album) {
       const parentLi = createDOMElement({ type: "li" })
-      const innerA = createDOMElement({ type: "a", attributes: { href: "javascript:void(0)" }, innerHTML: `${ album.name }` })
+      const innerA = createDOMElement({ type: "a", attributes: { href: "javascript:void(0)" }, innerHTML: `${ album.name[0].toUpperCase() }${ album.name.slice(1).toLowerCase() }` })
       innerA.addEventListener("click", goToPage.bind(null, album, false))  
       parentLi.insertBefore(innerA, null)  
       nav.insertBefore(parentLi, null)     
