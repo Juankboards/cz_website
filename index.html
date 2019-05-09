@@ -18,6 +18,7 @@
     height: 100%;
     margin: 0;
     background-color: #FEFEFE;
+    max-width: 100%;
   }
 
   a {
@@ -211,6 +212,22 @@
     margin: 0;
     transition: all .3s;
   }
+
+  section#album-content {
+    display: none
+  }
+
+  .imgs-wrapper {
+    width: 100%;
+    padding: 30px;
+    overflow-x: hidden;
+  }
+
+  .page-img {
+    width: 100%;
+    padding: 10px;
+  }
+
   @keyframes color-v {
     0% {
         color: #050505;
@@ -222,6 +239,18 @@
       text-align: right;
       margin-left: 30px;
       }
+  }
+
+  .page-wrapper {
+    text-align: center;
+  }
+
+  .page-title {
+    font-size: 3rem;
+  }
+
+  .page-description {
+    font-size: 1.5rem;
   }
 
   @keyframes color-responsive-v {
@@ -386,18 +415,14 @@
   <header>
     <!--Logo-->
     <div>
-      <a href="#">
+      <a onclick="goToPage(null, false)">
         <img src="img/logo.png" alt="Placeholder logo">
       </a>
     </div>
     <!--navigation list-->
     <ul id="navigation-list">
-      <div>
-        <li><a href="#">Portraits</a></li>
-        <li><a href="#">Fashion</a></li>
-        <li><a href="#">Music</a></li>
-        <li><a href="#">Press</a></li>
-        <li><a href="#">About</a></li>
+      <div id="nav-wrapper">
+        <li><a href="javascript:void(0)" onclick="goToPage(null, false)">Home</a></li>
       </div>
     </ul>
     <button onclick="toggleNav()">
@@ -406,11 +431,11 @@
       <span id="burguer-icon2"></span>
     </button>
   </header>
-  <section>
+  <section id="site-content">
     <div class="bio-wrapper">
       <p>Passionate photographer and filmmaker from Colombia located in the Greater New York City Area. His career started as a photojournalist where he developed a talent to capture life moments and peoples best facets. A versatile artist with experience capturing artists like Mau y Ricky, Sebastian Yatra, J Balvin, Karol G , Anuel AA, Ozuna and celebrities like Cardi B, Kendall Jenner and much more.  Always open to collaborate with fellow artists and continuing to enjoy the streets of NYC and grow professionally.</p>
     </div>
-    <div class="col-60 col-left bio" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
+    <div class="col-60 col-left bio" onmouseover="modifySiblings(addClass, ['grayscale'], event);" onmouseout="modifySiblings(removeClass, ['grayscale'], event);">
       <div class="group-wrapper">
         <a style="background-image: url('img/about.jpg')" id="about" href="#">
           <div>
@@ -419,67 +444,188 @@
         </a>
       </div>
     </div>
-    <div class="col-40 col-right" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
-      <div class="group-wrapper">
-        <a style="background-image: url('img/fashion.jpg')" id="fashion" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
-          <div>
-            <h2>Fashion</h2>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-40 col-left" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
-      <div class="group-wrapper">
-        <a style="background-image: url('img/portraits.jpg')" id="portraits" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
-          <div>
-            <h2>Portraits</h2>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-60 col-right" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
-      <div class="group-wrapper">
-        <a style="background-image: url('img/music.jpg')" id="music" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
-          <div>
-            <h2>Music</h2>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-33 col-left" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
-      <div class="group-wrapper">
-        <a style="background-image: url('img/events.jpg')" id="events" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
-          <div>
-            <h2>Events</h2>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-33 col-left" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
-      <div class="group-wrapper">
-        <a style="background-image: url('img/weddings.jpg')" id="weddings" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
-          <div>
-            <h2>Weddings</h2>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="col-33 col-left" onmouseover="modifySiblings(this.parentNode.childNodes, this, addClass, ['grayscale']);" onmouseout="modifySiblings(this.parentNode.childNodes, this, removeClass, ['grayscale']);">
-      <div class="group-wrapper">
-        <a style="background-image: url('img/press.jpg')" id="press" href="#" onmouseover="loopFunction(this, 5, changeImg);" onmouseout="setOriginalImg(this)">
-          <div>
-            <h2>Press</h2>
-          </div>
-        </a>
-      </div>
-    </div>
   </section>
+  <section id="album-content"></section>
 </body>
 <script>
-  var delayLoop;
+  const initState = () => {
+    let user = {}
+    let albums = []
+    const observables = {
+      
+    }
+    
+    return ({
+      userInfo() {
+        return user
+      },
+      albumsInfo() {
+        return albums
+      },
+      userUpdate(userUpdate) {
+        user = Object.assign(user, userUpdate)
+      },
+      albumsUpdate(albumsUpdate) {
+        albums = albumsUpdate
+      }
+    })
+  }
+
+  const state = initState()
+
+  function initWithPath() {
+    const path = window.location.pathname
+    if(path !== "/") displayAlbumPage(path)
+  }
+
+  window.onpopstate = (event) => {
+    const path = polyfillEvent(event).state.path
+    if(!path) goToPage(null, true)
+    else displayAlbumPage(path)
+  }
+
+  function addContent() {
+    request("GET", `https://roundspace.herokuapp.com/api?user=czaudiovisual@hotmail.com`)
+        .then(results => {
+            const albumsInfo = results.reduce((albums, result) => albums.concat(result.album), [])
+            state.albumsUpdate(albumsInfo)
+            generateContent(state.albumsInfo())
+        }).catch(e => {
+            console.log("error", e)
+        })
+  }
+
+  addContent()
+
+  const content = document.getElementById("site-content")
+  const albumContent = document.getElementById("album-content")
+  const nav = document.getElementById("nav-wrapper")
+    const classes = ["col-60 col-left", "col-40 col-right", "col-40 col-left", "col-60 col-right", "col-33 col-left", "col-33 col-left", "col-33 col-left"]
+
+    function polyfillEvent(event) {
+		return (event || window.event)
+  }
+  
+  function generateContent(albums) {
+    albums.forEach((album, id) => {
+      generateAlbumElements(album, id)
+      generateNav(album)
+    })
+  }
+
+    function generateAlbumElements(album, id) {
+      const classId = id < 5? id + 1 : id % 6
+      const parentDiv = createDOMElement({ type: "div", attributes: { className: classes[classId] } })
+      const wrapperDiv = createDOMElement({ type: "div", attributes: { className: "group-wrapper" } })
+      const innerA = createDOMElement({ type: "a", attributes: { style: `background-image: url('${album.photos[0] || "https://via.placeholder.com/450/000000\
+      "}')`, id: `${ album.name }-${ id }` } , innerHTML: `<div><h2>${album.name}</h2></div>` })
+      wrapperDiv.insertBefore(innerA, null)
+      parentDiv.insertBefore(wrapperDiv, null)
+      parentDiv.addEventListener("mouseover", modifySiblings.bind(null, addClass, ['grayscale']))
+      parentDiv.addEventListener("mouseout", modifySiblings.bind(null, removeClass, ['grayscale']))
+      innerA.addEventListener("mouseover", loopFunction.bind(null, Math.min(album.photos.length - 1, 5), changeImg, null))
+      innerA.addEventListener("mouseout", setOriginalImg) 
+      innerA.addEventListener("click", goToPage.bind(null, album, false))  
+      content.insertBefore(parentDiv, null)     
+    }
+
+    function goToPage(album, notHistory = false) {
+      const name = album? album.name.toLowerCase().trim().split(" ").join("_") : ""
+      if(`/${ name }` === window.location.pathname && !notHistory) return false
+      if(!notHistory) history.pushState({ path: name }, name, `/${ name }`)
+      if(album) {
+        const page = generateAlbumPage(album)
+        albumContent.innerHTML = page.outerHTML
+        return showAlbumPage()
+      }
+      showHomePage()
+    }
+
+    function generateAlbumPage(album) {
+      const parentDiv = createDOMElement({ type: "div", attributes: { className: "albumPage" } })
+      const wrapperDiv = createDOMElement({ type: "div", attributes: { className: "page-wrapper" } })
+      const h2 = createDOMElement({ type: "h2", attributes: { className: "page-title" }, innerHTML: album.name })
+      const description = createDOMElement({ type: "p", attributes: { className: "page-description" }, innerHTML: album.description })
+      const wrapperImgs = createDOMElement({ type: "div", attributes: { className: "imgs-wrapper" } })
+      album.photos.forEach(img => {
+        const imgElement = createDOMElement({ type: "img", attributes: { className: "page-img", src: img } })
+        wrapperImgs.insertBefore(imgElement, null)   
+      })
+      wrapperDiv.insertBefore(h2, null)
+      wrapperDiv.insertBefore(description, null)
+      wrapperDiv.insertBefore(wrapperImgs, null)
+      parentDiv.insertBefore(wrapperDiv, null)
+      return parentDiv
+    }
+
+    function showAlbumPage() {
+      content.style.display = "none"
+      albumContent.style.display = "block"
+    }
+
+    function showHomePage() {
+      content.style.display = "block"
+      albumContent.style.display = "none"
+    }
+
+    function displayAlbumPage(path) {
+      const album = findAlbum(path)
+      if(album) goToPage(album, true)
+    }
+
+    function findAlbum(path) {
+      for(album of state.albumsInfo()) {
+        if(album.name.toLowerCase().trim().split(" ").join("_") === path) return album
+      }
+    }
+
+    function generateNav(album) {
+      const parentLi = createDOMElement({ type: "li" })
+      const innerA = createDOMElement({ type: "a", attributes: { href: "javascript:void(0)" }, innerHTML: `${ album.name }` })
+      innerA.addEventListener("click", goToPage.bind(null, album, false))  
+      parentLi.insertBefore(innerA, null)  
+      nav.insertBefore(parentLi, null)     
+    }
+
+    function loopFunction(counter, fn, options, event) {
+      const node = polyfillEvent(event).target
+      if(counter <= 0)
+          return;
+      fn(node, counter, options);
+      delayLoop = setTimeout(loopFunction.bind(this, counter - 1, fn, options, event), 450);
+  }
+
+  function setOriginalImg(event) {
+    const node = polyfillEvent(event).currentTarget
+      clearTimeout(delayLoop);
+      const photo = state.albumsInfo()[node.id.split('-')[1]].photos[0]
+      node.style.backgroundImage = `url(${ photo })`;
+  }
+
+    function createDOMElement({ type, attributes, innerHTML }) {
+		let element = document.createElement(type)
+		element.innerHTML = innerHTML || ""  
+		for(let attr in attributes) {
+			element[attr] = attributes[attr]
+		}
+		return element
+    }
+
+  function modifySiblings(modification, options, event) {
+    event = polyfillEvent(event)
+    const target = event.currentTarget
+    const siblings = target.parentNode.childNodes 
+    siblings.forEach(function(node) {
+        if(node.nodeType==1 && node!=target) {
+            modification(node, options);
+        }
+    })
+  }
+
+  let delayLoop;
 
   function addClass(node, options) {
-      var classes = node.className.split(" ");
+      const classes = node.className.split(" ");
       options.forEach(function(classToAdd) {
           if(!classes.includes(classToAdd))
               node.className += " " + classToAdd;
@@ -487,43 +633,31 @@
   }
 
   function removeClass(node, options) {
-      var classes = node.className.split(" ").filter(function(clss) {
+      const classes = node.className.split(" ").filter(function(clss) {
           return !options.includes(clss);
       });
 
       node.className = classes.join(" ");
   }
 
-  function modifySiblings(siblings, calledNode, modification, options) {
-      siblings.forEach(function(node) {
-          if(node.nodeType==1 && node!=calledNode) {
-              modification(node, options);
-          }
-      })
-  }
 
-  function loopFunction(node, counter, fn, options) {
-      if(!counter)
-          return;
-      
-      fn(node, counter, options);
-      delayLoop = setTimeout(loopFunction.bind(this,node, counter - 1, fn, options), 350);
-  }
+  function polyfillEvent(event) {
+		return (event || window.event)
+	}
 
+  
   function changeImg(node, counter, options) {
-      node.style.backgroundImage = "url(img/" + node.id + "/" +node.id + counter + ".jpg)";
+      const photo = state.albumsInfo()[node.id.split('-')[1]].photos[counter]
+
+      node.style.backgroundImage = `url(${ photo })`;
   }
 
-  function setOriginalImg(node) {
-      clearTimeout(delayLoop);
-      node.style.backgroundImage = "url(img/" + node.id + ".jpg)";
-  }
 
   function toggleNav() {
-    var navigation = document.getElementById("navigation-list");
-    var iconTop = document.getElementById("burguer-icon1");
-    var iconCenter = document.getElementById("burguer-icon");
-    var iconButtom = document.getElementById("burguer-icon2");
+    const navigation = document.getElementById("navigation-list");
+    const iconTop = document.getElementById("burguer-icon1");
+    const iconCenter = document.getElementById("burguer-icon");
+    const iconButtom = document.getElementById("burguer-icon2");
 
     if(!navigation.style.display || navigation.style.display=='none') {
       navigation.style.display = 'block';
@@ -557,9 +691,9 @@
   }
 
   function loadImages(group, images) {
-    var index = images.length - 1;
-    var img = new Image ();
-    var loadImg = function(index) {
+    const index = images.length - 1;
+    const img = new Image ();
+    const loadImg = function(index) {
       img.onload = function() {
         if(index>0){
           loadImg(index-1);}
@@ -574,5 +708,20 @@
   loadImages('press',['press1.jpg','press2.jpg','press3.jpg','press4.jpg','press5.jpg']);
   loadImages('music',['music1.jpg','music2.jpg','music3.jpg','music4.jpg','music5.jpg']);
   loadImages('events',['events1.jpg','events2.jpg','events3.jpg','events4.jpg','events5.jpg']);
+
+  function request(type, url, info = {}) {
+		return new Promise((resolve, reject) => {
+			let req = new XMLHttpRequest();      
+			req.open(type, url, true);
+			req.onreadystatechange = function () {
+				if (this.readyState == 4) {
+					if(this.status >= 200 && this.status < 300)
+            resolve(JSON.parse(this.responseText).data)
+					reject(JSON.parse(this.responseText))
+        }
+			}
+			req.send()
+		})
+	}
 </script>
 </html>
