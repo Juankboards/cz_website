@@ -618,7 +618,7 @@
     function findAlbum(path) {
       for(album of state.albumsInfo()) {
         console.log(album)
-        if(album.name.toLowerCase().trim().split(" ").join("_") === path) return album
+        if(`/${album.name.toLowerCase().trim().split(" ").join("_")}` === path) return album
       }
     }
 
