@@ -493,12 +493,12 @@
   }
 
   const state = initState()
-  initWithPath()
   function initWithPath() {
     const path = window.location.pathname
+    console.log(path)
     if(path !== "/") displayAlbumPage(path)
   }
-
+  initWithPath()
   window.onpopstate = (event) => {
     const path = polyfillEvent(event).state.path
     if(!path) goToPage(null, true)
