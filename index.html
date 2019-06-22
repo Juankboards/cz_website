@@ -253,6 +253,24 @@
     font-size: 1.5rem;
   }
 
+  @keyframes init-logo-opacity {
+    0% {
+        opacity: 0;
+      }
+    100% {      
+      color: 1; 
+      }
+  }
+
+  @keyframes init-logo-rotate {
+    0% {
+        transform: rotate(0deg);
+      }
+    100% {      
+      transform: rotate(1080deg);
+    }
+  }
+
   @keyframes color-responsive-v {
     0% {
         color: #050505;
@@ -446,15 +464,15 @@
     </div>
   </section>
   <section id="album-content"></section>
+  <div id="init-section" style="display: flex;justify-content: center; align-items: center; background-color: white; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 100000">
+    <img style="animation: init-logo-opacity 1.5s linear, init-logo-rotate 3s cubic-bezier(.29,.07,.3,1) 1s infinite; position: absolute; width: 7em; transition: opacity 1s linear;" src="img/logo.png" id="init-logo" alt="Placeholder logo">
+  </div>
 </body>
 <script>
   const initState = () => {
     let user = {}
     let albums = []
-    const observables = {
-      
-    }
-    
+    const observables = {}
     return ({
       userInfo() {
         return user
@@ -467,6 +485,9 @@
       },
       albumsUpdate(albumsUpdate) {
         albums = albumsUpdate
+      },
+      addObservable(name, obs) {
+        observables[name] = obs
       }
     })
   }
@@ -507,18 +528,36 @@
   }
   
   function generateContent(albums) {
-    albums.forEach((album, id) => {
-      generateAlbumElements(album, id)
-      generateNav(album)
+    const preloadAlbumProm = albums.reduce((promises, album, id) => {
+      return promises.concat(preloadImgs(album))
+    }, [])
+    Promise.all(preloadAlbumProm).then(() => {
+      albums.forEach((album, id) => {
+        generateAlbumElements(album, id)
+        generateNav(album)
+        document.getElementById('init-section').style.display = 'none'
+      })
     })
+    .catch(err => console.log(err, 'errors'))
+  }
+
+  function preloadImgs(album) {
+    const loadPromises = album.photos.map(photo => new Promise((resolve, reject) => {
+      const img = new Image(200,200)
+      img.src = photo
+      img.onload = () => {
+        resolve()
+      }
+      img.error = () => reject()
+    }))
+    return loadPromises
   }
 
     function generateAlbumElements(album, id) {
       const classId = id < 5? id + 1 : id % 6
       const parentDiv = createDOMElement({ type: "div", attributes: { className: classes[classId] } })
       const wrapperDiv = createDOMElement({ type: "div", attributes: { className: "group-wrapper" } })
-      const innerA = createDOMElement({ type: "a", attributes: { style: `background-image: url('${album.photos[0] || "https://via.placeholder.com/450/000000\
-      "}')`, id: `${ album.name }-${ id }` } , innerHTML: `<div><h2>${album.name.toUpperCase()}</h2></div>` })
+      const innerA = createDOMElement({ type: "a", attributes: { style: `background-image: url('${album.photos[0]}')`, id: `${ album.name }-${ id }` } , innerHTML: `<div><h2>${album.name.toUpperCase()}</h2></div>` })
       wrapperDiv.insertBefore(innerA, null)
       parentDiv.insertBefore(wrapperDiv, null)
       parentDiv.addEventListener("mouseover", modifySiblings.bind(null, addClass, ['grayscale']))
@@ -530,6 +569,7 @@
     }
 
     function goToPage(album, notHistory = false) {
+      closeNav()
       const name = album? album.name.toLowerCase().trim().split(" ").join("_") : ""
       if(`/${ name }` === window.location.pathname && !notHistory) return false
       if(!notHistory) history.pushState({ path: name }, name, `/${ name }`)
@@ -652,62 +692,60 @@
       node.style.backgroundImage = `url(${ photo })`;
   }
 
-
   function toggleNav() {
+    const { navigation } = navElements()
+    if(!navigation.style.display || navigation.style.display=='none') {
+      openNav()
+    } else {
+      closeNav()
+    }
+  }
+
+  function navElements() {
     const navigation = document.getElementById("navigation-list");
     const iconTop = document.getElementById("burguer-icon1");
     const iconCenter = document.getElementById("burguer-icon");
     const iconButtom = document.getElementById("burguer-icon2");
 
-    if(!navigation.style.display || navigation.style.display=='none') {
-      navigation.style.display = 'block';
+    return { navigation, iconTop, iconCenter, iconButtom } 
+  }
+
+  function openNav() {
+    const { navigation, iconTop, iconCenter, iconButtom } = navElements()
+    navigation.style.display = 'block';
           
-      iconTop.style.top = '50%';
-      iconTop.style.transform = "rotate(45deg)";
-      iconTop.style.transition = "all 0.3s";
+    iconTop.style.top = '50%';
+    iconTop.style.transform = "rotate(45deg)";
+    iconTop.style.transition = "all 0.3s";
 
-      iconButtom.style.top = '50%';
-      iconButtom.style.transform = "rotate(-45deg)";
-      iconButtom.style.transition = "all 0.3s";
+    iconButtom.style.top = '50%';
+    iconButtom.style.transform = "rotate(-45deg)";
+    iconButtom.style.transition = "all 0.3s";
 
-      iconCenter.style.transform = "rotate(-45deg)";
-      iconCenter.style.opacity = "0";
-      iconCenter.style.transition = "all 0.3s";
-    } else {
+    iconCenter.style.transform = "rotate(-45deg)";
+    iconCenter.style.opacity = "0";
+    iconCenter.style.transition = "all 0.3s";
+  }
+
+  function closeNav() {
+    const { navigation, iconTop, iconCenter, iconButtom } = navElements()
+    console.log(navigation.offsetWidth, window.innerWidth)
+    if(navigation.offsetWidth < window.innerWidth + 150 && navigation.offsetWidth > window.innerWidth - 150) {
       navigation.style.display = 'none';
+    }
           
-      iconTop.style.top = 'calc(50% - 1.8em)';
-      iconTop.style.transform = "rotate(0deg)";
-      iconTop.style.transition = "all 0.3s";
+    iconTop.style.top = 'calc(50% - 1.8em)';
+    iconTop.style.transform = "rotate(0deg)";
+    iconTop.style.transition = "all 0.3s";
 
-      iconButtom.style.top = 'calc(50% + 1.8em)';
-      iconButtom.style.transform = "rotate(0deg)";
-      iconButtom.style.transition = "all 0.3s";
+    iconButtom.style.top = 'calc(50% + 1.8em)';
+    iconButtom.style.transform = "rotate(0deg)";
+    iconButtom.style.transition = "all 0.3s";
 
-      iconCenter.style.transform = "rotate(0deg)";
-      iconCenter.style.opacity = "1";
-      iconCenter.style.transition = "all 0.3s";
-    }
+    iconCenter.style.transform = "rotate(0deg)";
+    iconCenter.style.opacity = "1";
+    iconCenter.style.transition = "all 0.3s";
   }
-
-  function loadImages(group, images) {
-    const index = images.length - 1;
-    const img = new Image ();
-    const loadImg = function(index) {
-      img.onload = function() {
-        if(index>0){
-          loadImg(index-1);}
-      }
-      img.src = "img/"+group+"/" + images[index];
-    }
-    loadImg(index);
-  }
-
-  loadImages('fashion',['fashion1.jpg','fashion2.jpg','fashion3.jpg','fashion4.jpg','fashion5.jpg']);
-  loadImages('portraits',['portraits1.jpg','portraits2.jpg','portraits3.jpg','portraits4.jpg','portraits5.jpg']);
-  loadImages('press',['press1.jpg','press2.jpg','press3.jpg','press4.jpg','press5.jpg']);
-  loadImages('music',['music1.jpg','music2.jpg','music3.jpg','music4.jpg','music5.jpg']);
-  loadImages('events',['events1.jpg','events2.jpg','events3.jpg','events4.jpg','events5.jpg']);
 
   function request(type, url, info = {}) {
 		return new Promise((resolve, reject) => {
