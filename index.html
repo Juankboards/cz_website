@@ -495,12 +495,11 @@
   const state = initState()
   function initWithPath() {
     const path = window.location.pathname
-    console.log(path)
     if(path !== "/") {
       displayAlbumPage(path)
     }
   }
-  initWithPath()
+  
   window.onpopstate = (event) => {
     const path = polyfillEvent(event).state.path
     if(!path) goToPage(null, true)
@@ -513,6 +512,7 @@
             const albumsInfo = results.reduce((albums, result) => albums.concat(result.album), [])
             state.albumsUpdate(albumsInfo)
             generateContent(state.albumsInfo())
+            initWithPath()
         }).catch(e => {
             console.log("error", e)
         })
@@ -612,12 +612,12 @@
 
     function displayAlbumPage(path) {
       const album = findAlbum(path)
-      console.log(album)
       if(album) goToPage(album, true)
     }
 
     function findAlbum(path) {
       for(album of state.albumsInfo()) {
+        console.log(album)
         if(album.name.toLowerCase().trim().split(" ").join("_") === path) return album
       }
     }
@@ -732,7 +732,6 @@
 
   function closeNav() {
     const { navigation, iconTop, iconCenter, iconButtom } = navElements()
-    console.log(navigation.offsetWidth, window.innerWidth)
     if(navigation.offsetWidth < window.innerWidth + 150 && navigation.offsetWidth > window.innerWidth - 150) {
       navigation.style.display = 'none';
     }
