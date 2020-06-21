@@ -205,10 +205,10 @@
     section#about a#about-img {
       width: 45%;
       max-width: 360px;
-      height: 460px;
+      height: 455px;
       filter: grayscale(15%);
       display: inline-block;
-      margin: 25px;
+      margin: 15px;
       overflow-y: hidden;
     }
 
@@ -305,14 +305,14 @@
     }
 
     section#about h3 span {
-      font-size: 1.5em;
+      font-size: 1.4em;
       font-weight: bold;
       font-style: italic;
       color: #707070;
       font-family: 'Cormorant Garamond', serif;
     }
     section#about div p {
-      font-size: 53px;
+      font-size: 50px;
       width: 40%;
       margin: 30px 95px;
       color: #303030;
@@ -326,7 +326,7 @@
     }
 
     section#about p#about-end {
-      font-size: 30px;
+      font-size: 28px;
       margin: 0;
       font-family: 'Cormorant Garamond', serif;
     }
@@ -579,7 +579,7 @@
             >
           </li>
           <li>
-            <a href="javascript:void(0)" onclick="showAbout()">About</a>
+            <a href="javascript:void(0)" onclick="goToPage('about', false)">About</a>
           </li>
         </div>
       </ul>
@@ -630,7 +630,7 @@
           align-items: center;
           justify-content: space-around;
           padding: 25px;
-          margin: 10px auto;
+          margin: 10px auto 5px;
           width: 90%;
         "
       >
@@ -728,15 +728,15 @@
     const state = initState();
     function initWithPath() {
       const path = window.location.pathname;
-      if (path !== '/') {
-        displayAlbumPage(path);
-      }
+      if (path === '/about') return showAboutPage();
+      if (path !== '/') return displayAlbumPage(path);
     }
 
     window.onpopstate = (event) => {
       const path = polyfillEvent(event).state.path;
-      if (!path) goToPage(null, true);
-      else displayAlbumPage(path);
+      if (!path) return goToPage(null, true);
+      if ( path === 'about') return goToPage('about', true);
+      displayAlbumPage(path);
     };
 
     function addContent() {
@@ -846,26 +846,19 @@
       content.insertBefore(parentDiv, null);
     }
 
-    function showAbout() {
-      document.getElementById('site-content').style.display = 'none';
-      document.getElementById('about').style.display = 'block';
-      closeNav(navElements());
-    }
-
     function goToPage(album, notHistory = false) {
-      document.getElementById('about').style.display = 'none';
-      document.getElementById('site-content').style.display = 'block';
       closeNav(navElements());
-      const name = album
+      const name = album !== 'about' && album
         ? album.name.toLowerCase().trim().split(' ').join('_')
-        : '';
+        : album || '';
       if (`/${name}` === window.location.pathname && !notHistory) return false;
       if (!notHistory) history.pushState({ path: name }, name, `/${name}`);
-      if (album) {
+      if (album !== 'about' && album) {
         const page = generateAlbumPage(album);
         albumContent.innerHTML = page.outerHTML;
         return showAlbumPage();
       }
+      if(album === 'about') return showAboutPage();
       showHomePage();
     }
 
@@ -906,12 +899,20 @@
       return parentDiv;
     }
 
+    function showAboutPage() {
+      content.style.display = 'none';
+      document.getElementById('about').style.display = 'block';
+      albumContent.style.display = 'none';
+    }
+
     function showAlbumPage() {
       content.style.display = 'none';
+      document.getElementById('about').style.display = 'none';
       albumContent.style.display = 'block';
     }
 
     function showHomePage() {
+      document.getElementById('about').style.display = 'none';
       content.style.display = 'block';
       albumContent.style.display = 'none';
     }
@@ -923,9 +924,7 @@
 
     function findAlbum(path) {
       for (album of state.albumsInfo()) {
-        console.log(album);
-        if (`/${album.name.toLowerCase().trim().split(' ').join('_')}` === path)
-          return album;
+        if (`${album.name.toLowerCase().trim().split(' ').join('_')}` === path) return album;
       }
     }
 
@@ -1080,4 +1079,5 @@
       });
     }
   </script>
+  <script data-ad-client="ca-pub-4489942984016492" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 </html>
