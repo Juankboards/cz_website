@@ -1,767 +1,1083 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>CZAudiovisual</title>
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700" media="none" onload="if(media!='all')media='all'" rel="stylesheet">
-  <link type="image/png" rel="shortcut icon" href="favicon.png">
-</head>
-<style>
-  * {
-    box-sizing: border-box;
-    font-family: 'Open Sans Condensed', sans-serif;
+  <head>
+    <meta charset="UTF-8" />
+    <title>CZAudiovisual</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:700"
+      media="none"
+      onload="if(media!='all')media='all'"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <link type="image/png" rel="shortcut icon" href="favicon.png" />
+  </head>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Open Sans Condensed', sans-serif;
+    }
 
-  }
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background-color: #fefefe;
+      max-width: 100%;
+    }
 
-  html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    background-color: #FEFEFE;
-    max-width: 100%;
-  }
+    footer {
+      bottom: 15px;
+      position: absolute;
+      width: 100%;
+      height: 75px;
+    }
 
-  a {
-    text-decoration: none;
-    color: #050505;
-    font-weight: bold;
-    line-height: 38px;
-    letter-spacing: 2px;
-  }
+    a {
+      text-decoration: none;
+      color: #050505;
+      font-weight: bold;
+      line-height: 38px;
+      letter-spacing: 2px;
+    }
 
-  header {
-    width: 350px;
-    height: 100%;
-    position:fixed;
-    z-index: 5555;
-  }
+    header {
+      width: 250px;
+      height: 100%;
+      position: fixed;
+      z-index: 5555;
+    }
 
-  header > div {
-    width: 85px;
-    height: 85px;
-    position: absolute;
-    top: 45px;
-    left: 45px;
-  }
+    header > div {
+      width: 85px;
+      height: 85px;
+      position: absolute;
+      top: 45px;
+      left: 45px;
+    }
 
-  header img {
-    width: 100%;
-  }
+    header img {
+      width: 100%;
+    }
 
-  header ul {
-    position: absolute;
-    top: 170px;
-    left: 85px;
-    list-style: none;
-    padding: 0;
-    position: absolute;
-    transition: all 0.7s;
-  }
+    header ul {
+      position: absolute;
+      top: 170px;
+      left: 85px;
+      list-style: none;
+      padding: 0;
+      position: absolute;
+      transition: all 0.7s;
+    }
 
-  header ul li {
-    margin-top: 15px;
-    font-size: 26px;
-    position: relative;
-  }
+    header ul li {
+      margin-top: 15px;
+      font-size: 26px;
+      position: relative;
+    }
 
-  header ul li > a:before {
-    content: "";
-    background: linear-gradient(120deg, #8fd3f4 15%, #FF00FF 100%);
-    position: absolute;
-    top: 53%;
-    width: 100%;
-    height: 5px;
-    transform: scaleX(0);
-    animation-fill-mode: forwards;
-    z-index: -10;
-    display: none;
-  }
+    header ul li > a:before {
+      content: '';
+      background: linear-gradient(120deg, #8fd3f4 15%, #ff00ff 100%);
+      position: absolute;
+      top: 53%;
+      width: 100%;
+      height: 5px;
+      transform: scaleX(0);
+      animation-fill-mode: forwards;
+      z-index: -10;
+      display: none;
+    }
 
-  header ul li > a:focus {
-    animation: .15s forwards color-v linear;
-    animation-fill-mode: forwards;
-    outline: none;
-  }
+    header ul li > a:focus {
+      animation: 0.15s forwards color-v linear;
+      animation-fill-mode: forwards;
+      outline: none;
+    }
 
-  header ul li > a:hover:before{
-    animation: .15s forwards hover-v linear;
-    animation-fill-mode: forwards;
-    display: block;
-  }
+    header ul li > a:hover:before {
+      animation: 0.15s forwards hover-v linear;
+      animation-fill-mode: forwards;
+      display: block;
+    }
 
-  header ul li > a:focus:before {
-    animation: .20s forwards focus-v linear;
-    animation-fill-mode: forwards;
-    display: block;
-  }
+    header ul li > a:focus:before {
+      animation: 0.2s forwards focus-v linear;
+      animation-fill-mode: forwards;
+      display: block;
+    }
 
-  header button {
-    display: none;
-  }
+    header button {
+      display: none;
+    }
 
-  section {
-    width: cal(100% - 400px);
-    max-width: 1500px;
-    min-height: 100%;
-    padding: 20px 0 20px 350px;
-    margin: 0 auto;
-  }
+    section {
+      width: cal(100% - 400px);
+      max-width: 1500px;
+      min-height: 100%;
+      padding: 20px 0 20px 250px;
+      margin: 0 auto;
+    }
 
-  section > div {
-    padding: 8px;
-  }
+    section#about {
+      font-family: 'Playfair Display', serif;
+      padding: 20px 0 20px 250px;
+      display: none;
+      overflow-x: hidden;
+    }
 
-  section .bio-wrapper {
-    width: 100%;
-    display: block;
-    height: 100%;
-    margin: 0 auto;
-    max-width: unset;
-    position: fixed;
-    top: 0;
-    left: 0;
-    text-align: center;
-    font-size: .85em;
-    line-height: 20px;
-    letter-spacing: 3px;
-    display: none;
-    background-color: rgba(0,0,0,.6)
-  }
+    section > div {
+      padding: 8px;
+    }
 
-  section .bio:hover .bio-wrapper {
-    display: block;
-    transition: all 5s;
-  }
+    section .bio-wrapper {
+      width: 100%;
+      display: block;
+      height: 100%;
+      margin: 0 auto;
+      max-width: unset;
+      position: fixed;
+      top: 0;
+      left: 0;
+      text-align: center;
+      font-size: 0.85em;
+      line-height: 20px;
+      letter-spacing: 3px;
+      display: none;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
 
-  .group-wrapper {
-    width: 100%;
-    height: 100%;
-    overflow: hidden
-  }
+    .group-wrapper {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
 
-  section .col-20 {
-    width: 20%;
-    display: inline-block;
-    height: 30vh;
-  }
+    section .col-20 {
+      width: 20%;
+      display: inline-block;
+      height: 30vh;
+    }
 
-  section .col-33 {
-    width: 33%;
-    display: inline-block;
-    height: 30vh;
-  }
+    section .col-33 {
+      width: 33%;
+      display: inline-block;
+      height: 30vh;
+    }
 
-  section .col-80 {
-    width: 80%;
-    display: inline-block;
-    height: 30vh;
-  }
+    section .col-80 {
+      width: 80%;
+      display: inline-block;
+      height: 30vh;
+    }
 
-  section .col-60 {
-    width: 60%;
-  }
+    section .col-60 {
+      width: 60%;
+    }
 
-  section .col-40 {
-    width: 40%;
-  }
+    section .col-40 {
+      width: 40%;
+    }
 
-  .col-left {
-    float: left;
-  }
+    .col-left {
+      float: left;
+    }
 
-  .col-right {
-    float: right;
-  }
+    .col-right {
+      float: right;
+    }
 
-  section a {
-    display: block;
-    width: 100%;
-    background-size: cover;
-    background-position: right center;
-    height: 35vh;
-    color: #FEFEFE;
-    transition: all .3s;
-    font-size: 20px;
-  }
+    section a {
+      display: block;
+      width: 100%;
+      background-size: cover;
+      background-position: right center;
+      height: 35vh;
+      color: #fefefe;
+      transition: all 0.3s;
+      font-size: 20px;
+    }
 
-  section > div:hover a#about {
-    transform: scale(1.2);
-    transition: all .3s;
-  }
+    section#about a#about-img {
+      width: 45%;
+      max-width: 360px;
+      height: 460px;
+      filter: grayscale(15%);
+      display: inline-block;
+      margin: 25px;
+      overflow-y: hidden;
+    }
 
-  section > div:hover a h2{
-    display: none;
-    transition: all .3s;
-  }
+    section#about a#about-img:hover {
+      transform: scale(1.2);
+      transition: all 0.3s;
+    }
 
-  section .grayscale {
-    filter: grayscale(98%);
-  }
+    section > div:hover a h2 {
+      display: none;
+      transition: all 0.3s;
+    }
 
-  section a div {
-    display: inline-block;
-    max-width: 340px;
-    pointer-events: none;
-    position: relative;
-    padding: 20px;
-    top: 15px;
-    left: 15px;
-  }
+    section .grayscale {
+      filter: grayscale(98%);
+    }
 
-  section h2 {
-    margin: 0;
-    transition: all .3s;
-  }
+    section a div {
+      display: inline-block;
+      max-width: 340px;
+      pointer-events: none;
+      position: relative;
+      padding: 20px;
+      top: 15px;
+      left: 15px;
+    }
 
-  section#album-content {
-    display: none
-  }
+    section h2 {
+      margin: 0;
+      transition: all 0.3s;
+    }
 
-  .imgs-wrapper {
-    width: 100%;
-    padding: 30px;
-    overflow-x: hidden;
-  }
+    section#album-content {
+      display: none;
+    }
 
-  .page-img {
-    width: 100%;
-    padding: 10px;
-  }
+    .imgs-wrapper {
+      width: 100%;
+      padding: 30px;
+      overflow-x: hidden;
+    }
 
-  @keyframes color-v {
-    0% {
+    .page-img {
+      width: 100%;
+      padding: 10px;
+    }
+
+    footer a.col-25 {
+      width: 25%;
+      display: inline-block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      filter: grayscale(80%);
+    }
+
+    footer a.col-25 img {
+      width: 80%;
+    }
+
+    @keyframes color-v {
+      0% {
         color: #050505;
         text-align: left;
         margin-left: 0px;
       }
-    100% {      
-      color: #FEFEFE;
-      text-align: right;
-      margin-left: 30px;
+      100% {
+        color: #fefefe;
+        text-align: right;
+        margin-left: 30px;
       }
-  }
+    }
 
-  .page-wrapper {
-    text-align: center;
-  }
+    .page-wrapper {
+      text-align: center;
+    }
 
-  .page-title {
-    font-size: 3rem;
-  }
+    .page-title {
+      font-size: 3rem;
+    }
 
-  .page-description {
-    font-size: 1.5rem;
-  }
+    .page-description {
+      font-size: 1.5rem;
+    }
 
-  @keyframes init-logo-opacity {
-    0% {
+    section#about h3 {
+      font-size: 5em;
+      font-weight: lighter;
+      margin: 0 25px;
+      color: #000;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    section#about h3 span {
+      font-size: 1.5em;
+      font-weight: bold;
+      font-style: italic;
+      color: #707070;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    section#about div p {
+      font-size: 53px;
+      width: 40%;
+      margin: 30px 95px;
+      color: #303030;
+      height: max-content;
+      font-style: italic;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    section#about a#about-img img {
+      width: 100%;
+    }
+
+    section#about p#about-end {
+      font-size: 30px;
+      margin: 0;
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    @keyframes init-logo-opacity {
+      0% {
         opacity: 0;
       }
-    100% {      
-      color: 1; 
+      100% {
+        color: 1;
       }
-  }
+    }
 
-  @keyframes init-logo-rotate {
-    0% {
+    @keyframes init-logo-rotate {
+      0% {
         transform: rotate(0deg);
       }
-    100% {      
-      transform: rotate(1080deg);
+      100% {
+        transform: rotate(1080deg);
+      }
     }
-  }
 
-  @keyframes color-responsive-v {
-    0% {
+    @keyframes color-responsive-v {
+      0% {
         color: #050505;
       }
-    100% {      
-      color: #FEFEFE; 
+      100% {
+        color: #fefefe;
       }
-  }
+    }
 
-  @keyframes focus-v {
-    0% {
+    @keyframes focus-v {
+      0% {
         transform: scaleX(1.05);
         height: 5px;
         top: 55%;
       }
-    100% {      
-      transform: scaleX(1.05); 
-      height: 45px;
-      top: -2px;
+      100% {
+        transform: scaleX(1.05);
+        height: 45px;
+        top: -2px;
       }
-  }
+    }
 
-  @keyframes focus-responsive-v {
-    0% {
+    @keyframes focus-responsive-v {
+      0% {
         transform: scaleX(1.05);
         height: 5px;
         top: 55%;
       }
-    100% {      
-      transform: scaleX(1.05); 
-      height: 1.5em;
-      top: 1px;
+      100% {
+        transform: scaleX(1.05);
+        height: 1.5em;
+        top: 1px;
       }
-  }
+    }
 
-  @keyframes hover-v {
-    0% {
+    @keyframes hover-v {
+      0% {
         transform: scaleX(0);
       }
-    100% {   
+      100% {
         transform: scaleX(1.05);
       }
-  }
-
-  @media (-webkit-min-device-pixel-ratio: 2), 
-  (min-resolution: 192dpi), (max-width: 57em) { 
-    section {
-      width: 100%;
-      padding: 11em 20px 20px;
     }
 
-    section a {
-      font-size: 2.5em;
-    }
+    @media (-webkit-min-device-pixel-ratio: 2),
+      (min-resolution: 192dpi),
+      (max-width: 57em) {
+      section,
+      section#about {
+        width: 100%;
+        padding: 15em 20px 150px;
+      }
 
-    header {
-      width: 100%;
-      height: 11em;;
-      position:fixed;
-      background: #FEFEFE;
-    }
+      section a {
+        font-size: 2.5em;
+      }
 
-    header > div {
-      width: 7em;
-      height: 7em;
-      position: absolute;
-      top: 2em;
-      left: 3em;
-    }
+      section#about h3 {
+        text-align: right;
+        font-weight: bold;
+      }
 
-    header ul {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255,255,255,.98);
-      text-align: center;
-      vertical-align: bottom;
-      margin: 0;
-      display: none;
-    }
+      section#about div p {
+        width: 100%;
+        margin: 10px;
+        font-size: 4.7em;
+        z-index: 100;
+      }
 
-    header ul div{
-      width: 100%;
-      position: absolute;
-      bottom: 55%;
-      transform: translateY(50%);
-    }
+      section#about a#about-img {
+        width: 1em;
+        overflow-y: unset;
+      }
 
-    header ul li > a:before {
+      section#about a#about-img img {
+        width: 16em;
+        position: relative;
+        right: 10em;
+        filter: grayscale(20%) contrast(80%) opacity(60%);
+      }
+
+      section#about p#about-end {
+        margin: 120px auto;
+        font-size: 3.7em;
+        z-index: 100;
+        position: relative;
+        text-align: center;
+      }
+
+      header {
+        width: 100%;
+        height: 11em;
+        position: fixed;
+        background: #fefefe;
+      }
+
+      header > div {
+        width: 7em;
+        height: 7em;
+        position: absolute;
+        top: 2em;
+        left: 3em;
+      }
+
+      header ul {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        text-align: center;
+        vertical-align: bottom;
+        margin: 0;
+        display: none;
+      }
+
+      header ul div {
+        width: 100%;
+        position: absolute;
+        bottom: 55%;
+        transform: translateY(50%);
+      }
+
+      header ul li > a:before {
         width: 40%;
         left: 30%;
-    }
+      }
 
-    header ul li {
-      font-size: 5em;
-    }
+      header ul li {
+        font-size: 5em;
+      }
 
-    header ul li a {
+      header ul li a {
         letter-spacing: 3px;
-    }
+      }
 
-    header > div.nav-icon {
-      left: unset;
-      right: 0;
-    }
-    
-    header button {
-      position: absolute;
-      display: block;
-      top: 2em;
-      right: 3em;
-      cursor: pointer;
-      background: transparent;
-      border: none;
-      width: 7em;
-      height: 8em;
-      padding: 0;
-      outline: none;
-    }
+      header > div.nav-icon {
+        left: unset;
+        right: 0;
+      }
 
-    header button:focus {
-      outline: none;
-    }
+      header button {
+        position: absolute;
+        display: block;
+        top: 2em;
+        right: 3em;
+        cursor: pointer;
+        background: transparent;
+        border: none;
+        width: 7em;
+        height: 8em;
+        padding: 0;
+        outline: none;
+      }
 
-    header button #burguer-icon, header button #burguer-icon1, header button #burguer-icon2 {
-      height: 5px;
-      width: 100%;
-      position: absolute;
-      top: 50%;
-      right: 0;
-      background-color: #050505;
-      margin: auto; 
-      -webkit-transition: width 0.3s; /* For Safari 3.1 to 6.0 */
-      transition: width 0.3s ease;
-      outline: none;
-    }
+      header button:focus {
+        outline: none;
+      }
 
-    header button #burguer-icon1 {
-      top: calc(50% - 1.8em);
-    }
+      header button #burguer-icon,
+      header button #burguer-icon1,
+      header button #burguer-icon2 {
+        height: 5px;
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        right: 0;
+        background-color: #050505;
+        margin: auto;
+        -webkit-transition: width 0.3s; /* For Safari 3.1 to 6.0 */
+        transition: width 0.3s ease;
+        outline: none;
+      }
 
-    header button #burguer-icon2 {
-      top: calc(50% + 1.8em);
-    }
+      header button #burguer-icon1 {
+        top: calc(50% - 1.8em);
+      }
 
-    header ul li > a:focus {
-      animation: .15s forwards color-responsive-v linear;
-    }
+      header button #burguer-icon2 {
+        top: calc(50% + 1.8em);
+      }
 
-    header ul li > a:focus:before {
-      animation: .20s forwards focus-responsive-v linear;
-    }
+      header ul li > a:focus {
+        animation: 0.15s forwards color-responsive-v linear;
+      }
 
-  }
-  
-</style>
-<body class="bg--blue">
-  <header>
-    <!--Logo-->
-    <div>
-      <a onclick="goToPage(null, false)">
-        <img src="img/logo.png" alt="Placeholder logo">
-      </a>
-    </div>
-    <!--navigation list-->
-    <ul id="navigation-list">
-      <div id="nav-wrapper">
-        <li><a href="javascript:void(0)" onclick="goToPage(null, false)">Home</a></li>
-      </div>
-    </ul>
-    <button onclick="toggleNav()">
-      <span id="burguer-icon1"></span>
-      <span id="burguer-icon"></span>
-      <span id="burguer-icon2"></span>
-    </button>
-  </header>
-  <section id="site-content">
-    <div class="bio-wrapper">
-      <p>Passionate photographer and filmmaker from Colombia located in the Greater New York City Area. His career started as a photojournalist where he developed a talent to capture life moments and peoples best facets. A versatile artist with experience capturing artists like Mau y Ricky, Sebastian Yatra, J Balvin, Karol G , Anuel AA, Ozuna and celebrities like Cardi B, Kendall Jenner and much more.  Always open to collaborate with fellow artists and continuing to enjoy the streets of NYC and grow professionally.</p>
-    </div>
-    <div class="col-60 col-left bio" onmouseover="modifySiblings(addClass, ['grayscale'], event);" onmouseout="modifySiblings(removeClass, ['grayscale'], event);">
-      <div class="group-wrapper">
-        <a style="background-image: url('img/about.jpg')" id="about" href="#">
-          <div>
-            <h2>About</h2>
-          </div>
+      header ul li > a:focus:before {
+        animation: 0.2s forwards focus-responsive-v linear;
+      }
+
+      footer {
+        position: fixed;
+        bottom: 0em;
+        height: 10em;
+        background-color: #fff;
+      }
+
+      footer a.col-25 img {
+        width: 50%;
+      }
+
+      section .col-100-mobile {
+        width: 100%;
+        padding: 0 20px;
+        margin: 30px auto;
+      }
+
+      section .col-center-mobile {
+        float: unset;
+      }
+    }
+  </style>
+  <body class="bg--blue">
+    <header>
+      <!--Logo-->
+      <div>
+        <a onclick="goToPage(null, false)">
+          <img src="img/logo.png" alt="Placeholder logo" />
         </a>
       </div>
+      <!--navigation list-->
+      <ul id="navigation-list">
+        <div id="nav-wrapper">
+          <li>
+            <a href="javascript:void(0)" onclick="goToPage(null, false)"
+              >Home</a
+            >
+          </li>
+          <li>
+            <a href="javascript:void(0)" onclick="showAbout()">About</a>
+          </li>
+        </div>
+      </ul>
+      <button onclick="toggleNav()">
+        <span id="burguer-icon1"></span>
+        <span id="burguer-icon"></span>
+        <span id="burguer-icon2"></span>
+      </button>
+      <footer id="footer">
+        <a
+          class="col-25 col-left"
+          href="https://www.instagram.com/czaudiovisual"
+          target="_blank"
+        >
+          <img src="./img/instagram.png" alt="instagram icon"
+        /></a>
+        <a
+          class="col-25 col-left"
+          href="https://www.facebook.com/czaudiovisual"
+          target="_blank"
+        >
+          <img src="./img/facebook.png" alt="facebook icon"
+        /></a>
+        <a
+          class="col-25 col-left"
+          href="https://www.youtube.com/czaudiovisual"
+          target="_blank"
+        >
+          <img src="./img/youtube.png" alt="youtube icon"
+        /></a>
+        <a
+          class="col-25 col-left"
+          href="mailto:info.czaudiovisual@gmail.com"
+          target="_blank"
+        >
+          <img src="./img/email.png" alt="email icon"
+        /></a>
+      </footer>
+    </header>
+    <section id="about">
+      <h3>
+        &emsp;&emsp;<span>C</span>olombian photographer and filmmaker based in
+        Miami, Florida.
+      </h3>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          padding: 25px;
+          margin: 10px auto;
+          width: 90%;
+        "
+      >
+        <p>
+          His career started as a photojournalist where he developed a talent to
+          capture life moments and peoples best facets.
+        </p>
+        <a id="about-img">
+          <img src="./img/about.jpg" alt="czaudiovisual about photo" /></img>
+        </a>
+      </div>
+      <p id="about-end">
+        A versatile artist with experience capturing artists like
+        <b style="font-family: 'Cormorant Garamond', serif;"
+          >Mau y Ricky, Sebastian Yatra, J Balvin, Karol G , Anuel AA, Ozuna</b
+        >
+        and celebrities like
+        <b style="font-family: 'Cormorant Garamond', serif;"
+          >Cardi B, Kendall Jenner</b
+        >
+        and much more. Always open to collaborate with fellow artists and
+        continue growing professionally.
+      </p>
+    </section>
+    <section id="site-content"></section>
+    <section id="album-content"></section>
+    <div
+      id="init-section"
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 100000;
+      "
+    >
+      <img
+        style="
+          animation: init-logo-opacity 1.5s linear,
+            init-logo-rotate 3s cubic-bezier(0.29, 0.07, 0.3, 1) 1s infinite;
+          position: absolute;
+          width: 7em;
+          transition: opacity 1s linear;
+        "
+        src="img/logo.png"
+        id="init-logo"
+        alt="Placeholder logo"
+      />
     </div>
-  </section>
-  <section id="album-content"></section>
-  <div id="init-section" style="display: flex;justify-content: center; align-items: center; background-color: white; width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 100000">
-    <img style="animation: init-logo-opacity 1.5s linear, init-logo-rotate 3s cubic-bezier(.29,.07,.3,1) 1s infinite; position: absolute; width: 7em; transition: opacity 1s linear;" src="img/logo.png" id="init-logo" alt="Placeholder logo">
-  </div>
-</body>
-<script>
-  const initState = () => {
-    let user = {}
-    let albums = []
-    const observables = {}
-    return ({
-      userInfo() {
-        return user
-      },
-      albumsInfo() {
-        return albums
-      },
-      userUpdate(userUpdate) {
-        user = Object.assign(user, userUpdate)
-      },
-      albumsUpdate(albumsUpdate) {
-        albums = albumsUpdate
-      },
-      addObservable(name, obs) {
-        observables[name] = obs
+    <div style="display: none;">
+      Icons made by
+      <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
+        >Freepik</a
+      >
+      from
+      <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+      is licensed by
+      <a
+        href="http://creativecommons.org/licenses/by/3.0/"
+        title="Creative Commons BY 3.0"
+        target="_blank"
+        >CC 3.0 BY</a
+      >
+    </div>
+  </body>
+  <script>
+    const initState = () => {
+      let user = {};
+      let albums = [];
+      const observables = {};
+      return {
+        userInfo() {
+          return user;
+        },
+        albumsInfo() {
+          return albums;
+        },
+        userUpdate(userUpdate) {
+          user = Object.assign(user, userUpdate);
+        },
+        albumsUpdate(albumsUpdate) {
+          albums = albumsUpdate;
+        },
+        addObservable(name, obs) {
+          observables[name] = obs;
+        },
+      };
+    };
+
+    const state = initState();
+    function initWithPath() {
+      const path = window.location.pathname;
+      if (path !== '/') {
+        displayAlbumPage(path);
       }
-    })
-  }
-
-  const state = initState()
-  function initWithPath() {
-    const path = window.location.pathname
-    if(path !== "/") {
-      displayAlbumPage(path)
     }
-  }
-  
-  window.onpopstate = (event) => {
-    const path = polyfillEvent(event).state.path
-    if(!path) goToPage(null, true)
-    else displayAlbumPage(path)
-  }
 
-  function addContent() {
-    request("GET", `https://roundspace.herokuapp.com/api?user=czaudiovisual@hotmail.com`)
-        .then(results => {
-            const albumsInfo = results.reduce((albums, result) => albums.concat(result.album), [])
-            state.albumsUpdate(albumsInfo)
-            generateContent(state.albumsInfo())
-            initWithPath()
-        }).catch(e => {
-            console.log("error", e)
+    window.onpopstate = (event) => {
+      const path = polyfillEvent(event).state.path;
+      if (!path) goToPage(null, true);
+      else displayAlbumPage(path);
+    };
+
+    function addContent() {
+      request(
+        'GET',
+        `https://roundspace.herokuapp.com/api?user=czaudiovisual@hotmail.com`
+      )
+        .then((results) => {
+          const albumsInfo = results.reduce(
+            (albums, result) => albums.concat(result.album),
+            []
+          );
+          state.albumsUpdate(albumsInfo);
+          generateContent(state.albumsInfo());
+          initWithPath();
         })
-  }
+        .catch((e) => {
+          console.log('error', e);
+        });
+    }
 
-  addContent()
+    addContent();
 
-  const content = document.getElementById("site-content")
-  const albumContent = document.getElementById("album-content")
-  const nav = document.getElementById("nav-wrapper")
-    const classes = ["col-60 col-left", "col-40 col-right", "col-40 col-left", "col-60 col-right", "col-33 col-left", "col-33 col-left", "col-33 col-left"]
+    const content = document.getElementById('site-content');
+    const albumContent = document.getElementById('album-content');
+    const nav = document.getElementById('nav-wrapper');
+    const classes = [
+      'col-60 col-left',
+      'col-40 col-right',
+      'col-40 col-left',
+      'col-60 col-right',
+      'col-33 col-left',
+      'col-33 col-left',
+      'col-33 col-left',
+    ];
 
     function polyfillEvent(event) {
-		return (event || window.event)
-  }
-  
-  function generateContent(albums) {
-    const preloadAlbumProm = albums.reduce((promises, album, id) => {
-      return promises.concat(preloadImgs(album))
-    }, [])
-    Promise.all(preloadAlbumProm).then(() => {
-      albums.forEach((album, id) => {
-        generateAlbumElements(album, id)
-        generateNav(album)
-        document.getElementById('init-section').style.display = 'none'
-      })
-    })
-    .catch(err => console.log(err, 'errors'))
-  }
+      return event || window.event;
+    }
 
-  function preloadImgs(album) {
-    const loadPromises = album.photos.map(photo => new Promise((resolve, reject) => {
-      const img = new Image(200,200)
-      img.src = photo
-      img.onload = () => {
-        resolve()
-      }
-      img.error = () => reject()
-    }))
-    return loadPromises
-  }
+    function generateContent(albums) {
+      const preloadAlbumProm = albums.reduce((promises, album, id) => {
+        return promises.concat(preloadImgs(album));
+      }, []);
+      Promise.all(preloadAlbumProm)
+        .then(() => {
+          albums.forEach((album, id) => {
+            generateAlbumElements(album, id);
+            generateNav(album);
+            document.getElementById('init-section').style.display = 'none';
+          });
+        })
+        .catch((err) => console.log(err, 'errors'));
+    }
+
+    function preloadImgs(album) {
+      const loadPromises = new Promise((resolve, reject) => {
+        const img = new Image(200, 200);
+        img.src = album.photos[0];
+        img.onload = () => {
+          resolve();
+        };
+        img.error = () => reject();
+      });
+      return loadPromises;
+    }
 
     function generateAlbumElements(album, id) {
-      const classId = id < 5? id + 1 : id % 6
-      const parentDiv = createDOMElement({ type: "div", attributes: { className: classes[classId] } })
-      const wrapperDiv = createDOMElement({ type: "div", attributes: { className: "group-wrapper" } })
-      const innerA = createDOMElement({ type: "a", attributes: { style: `background-image: url('${album.photos[0]}')`, id: `${ album.name }-${ id }` } , innerHTML: `<div><h2>${album.name.toUpperCase()}</h2></div>` })
-      wrapperDiv.insertBefore(innerA, null)
-      parentDiv.insertBefore(wrapperDiv, null)
-      parentDiv.addEventListener("mouseover", modifySiblings.bind(null, addClass, ['grayscale']))
-      parentDiv.addEventListener("mouseout", modifySiblings.bind(null, removeClass, ['grayscale']))
-      innerA.addEventListener("mouseover", loopFunction.bind(null, Math.min(album.photos.length - 1, 5), changeImg, null))
-      innerA.addEventListener("mouseout", setOriginalImg) 
-      innerA.addEventListener("click", goToPage.bind(null, album, false))  
-      content.insertBefore(parentDiv, null)     
+      const classId = id < 5 ? id : id % 6;
+      const parentDiv = createDOMElement({
+        type: 'div',
+        attributes: { className: classes[classId] + ' col-100-mobile col-center-mobile' },
+      });
+      const wrapperDiv = createDOMElement({
+        type: 'div',
+        attributes: { className: 'group-wrapper' },
+      });
+      const innerA = createDOMElement({
+        type: 'a',
+        attributes: {
+          style: `background-image: url('${album.photos[0]}')`,
+          id: `${album.name}-${id}`,
+        },
+        innerHTML: `<div><h2>${album.name.toUpperCase()}</h2></div>`,
+      });
+      wrapperDiv.insertBefore(innerA, null);
+      parentDiv.insertBefore(wrapperDiv, null);
+      parentDiv.addEventListener(
+        'mouseover',
+        modifySiblings.bind(null, addClass, ['grayscale'])
+      );
+      parentDiv.addEventListener(
+        'mouseout',
+        modifySiblings.bind(null, removeClass, ['grayscale'])
+      );
+      // innerA.addEventListener(
+      //   'mouseover',
+      //   loopFunction.bind(
+      //     null,
+      //     Math.min(album.photos.length - 1, 5),
+      //     changeImg,
+      //     null
+      //   )
+      // );
+      // innerA.addEventListener('mouseout', setOriginalImg);
+      innerA.addEventListener('click', goToPage.bind(null, album, false));
+      content.insertBefore(parentDiv, null);
+    }
+
+    function showAbout() {
+      document.getElementById('site-content').style.display = 'none';
+      document.getElementById('about').style.display = 'block';
+      closeNav(navElements());
     }
 
     function goToPage(album, notHistory = false) {
-      closeNav()
-      const name = album? album.name.toLowerCase().trim().split(" ").join("_") : ""
-      if(`/${ name }` === window.location.pathname && !notHistory) return false
-      if(!notHistory) history.pushState({ path: name }, name, `/${ name }`)
-      if(album) {
-        const page = generateAlbumPage(album)
-        albumContent.innerHTML = page.outerHTML
-        return showAlbumPage()
+      document.getElementById('about').style.display = 'none';
+      document.getElementById('site-content').style.display = 'block';
+      closeNav(navElements());
+      const name = album
+        ? album.name.toLowerCase().trim().split(' ').join('_')
+        : '';
+      if (`/${name}` === window.location.pathname && !notHistory) return false;
+      if (!notHistory) history.pushState({ path: name }, name, `/${name}`);
+      if (album) {
+        const page = generateAlbumPage(album);
+        albumContent.innerHTML = page.outerHTML;
+        return showAlbumPage();
       }
-      showHomePage()
+      showHomePage();
     }
 
     function generateAlbumPage(album) {
-      const parentDiv = createDOMElement({ type: "div", attributes: { className: "albumPage" } })
-      const wrapperDiv = createDOMElement({ type: "div", attributes: { className: "page-wrapper" } })
-      const h2 = createDOMElement({ type: "h2", attributes: { className: "page-title" }, innerHTML: album.name.toUpperCase() })
-      const description = createDOMElement({ type: "p", attributes: { className: "page-description" }, innerHTML: album.description })
-      const wrapperImgs = createDOMElement({ type: "div", attributes: { className: "imgs-wrapper" } })
-      album.photos.forEach(img => {
-        const imgElement = createDOMElement({ type: "img", attributes: { className: "page-img", src: img } })
-        wrapperImgs.insertBefore(imgElement, null)   
-      })
-      wrapperDiv.insertBefore(h2, null)
-      wrapperDiv.insertBefore(description, null)
-      wrapperDiv.insertBefore(wrapperImgs, null)
-      parentDiv.insertBefore(wrapperDiv, null)
-      return parentDiv
+      const parentDiv = createDOMElement({
+        type: 'div',
+        attributes: { className: 'albumPage' },
+      });
+      const wrapperDiv = createDOMElement({
+        type: 'div',
+        attributes: { className: 'page-wrapper' },
+      });
+      const h2 = createDOMElement({
+        type: 'h2',
+        attributes: { className: 'page-title' },
+        innerHTML: album.name.toUpperCase(),
+      });
+      const description = createDOMElement({
+        type: 'p',
+        attributes: { className: 'page-description' },
+        innerHTML: album.description,
+      });
+      const wrapperImgs = createDOMElement({
+        type: 'div',
+        attributes: { className: 'imgs-wrapper' },
+      });
+      album.photos.forEach((img) => {
+        const imgElement = createDOMElement({
+          type: 'img',
+          attributes: { className: 'page-img', src: img },
+        });
+        wrapperImgs.insertBefore(imgElement, null);
+      });
+      wrapperDiv.insertBefore(h2, null);
+      wrapperDiv.insertBefore(description, null);
+      wrapperDiv.insertBefore(wrapperImgs, null);
+      parentDiv.insertBefore(wrapperDiv, null);
+      return parentDiv;
     }
 
     function showAlbumPage() {
-      content.style.display = "none"
-      albumContent.style.display = "block"
+      content.style.display = 'none';
+      albumContent.style.display = 'block';
     }
 
     function showHomePage() {
-      content.style.display = "block"
-      albumContent.style.display = "none"
+      content.style.display = 'block';
+      albumContent.style.display = 'none';
     }
 
     function displayAlbumPage(path) {
-      const album = findAlbum(path)
-      if(album) goToPage(album, true)
+      const album = findAlbum(path);
+      if (album) goToPage(album, true);
     }
 
     function findAlbum(path) {
-      for(album of state.albumsInfo()) {
-        console.log(album)
-        if(`/${album.name.toLowerCase().trim().split(" ").join("_")}` === path) return album
+      for (album of state.albumsInfo()) {
+        console.log(album);
+        if (`/${album.name.toLowerCase().trim().split(' ').join('_')}` === path)
+          return album;
       }
     }
 
     function generateNav(album) {
-      const parentLi = createDOMElement({ type: "li" })
-      const innerA = createDOMElement({ type: "a", attributes: { href: "javascript:void(0)" }, innerHTML: `${ album.name[0].toUpperCase() }${ album.name.slice(1).toLowerCase() }` })
-      innerA.addEventListener("click", goToPage.bind(null, album, false))  
-      parentLi.insertBefore(innerA, null)  
-      nav.insertBefore(parentLi, null)     
+      const parentLi = createDOMElement({ type: 'li' });
+      const innerA = createDOMElement({
+        type: 'a',
+        attributes: { href: 'javascript:void(0)' },
+        innerHTML: `${album.name[0].toUpperCase()}${album.name
+          .slice(1)
+          .toLowerCase()}`,
+      });
+      innerA.addEventListener('click', goToPage.bind(null, album, false));
+      parentLi.insertBefore(innerA, null);
+      nav.insertBefore(parentLi, nav.lastChild);
     }
 
-    function loopFunction(counter, fn, options, event) {
-      const node = polyfillEvent(event).target
-      if(counter <= 0)
-          return;
-      fn(node, counter, options);
-      delayLoop = setTimeout(loopFunction.bind(this, counter - 1, fn, options, event), 450);
-  }
+    // function loopFunction(counter, fn, options, event) {
+    //   const node = polyfillEvent(event).target;
+    //   if (counter <= 0) return;
+    //   fn(node, counter, options);
+    //   delayLoop = setTimeout(
+    //     loopFunction.bind(this, counter - 1, fn, options, event),
+    //     450
+    //   );
+    // }
 
-  function setOriginalImg(event) {
-    const node = polyfillEvent(event).currentTarget
-      clearTimeout(delayLoop);
-      const photo = state.albumsInfo()[node.id.split('-')[1]].photos[0]
-      node.style.backgroundImage = `url(${ photo })`;
-  }
+    // function setOriginalImg(event) {
+    //   const node = polyfillEvent(event).currentTarget;
+    //   clearTimeout(delayLoop);
+    //   const photo = state.albumsInfo()[node.id.split('-')[1]].photos[0];
+    //   node.style.backgroundImage = `url(${photo})`;
+    // }
 
     function createDOMElement({ type, attributes, innerHTML }) {
-		let element = document.createElement(type)
-		element.innerHTML = innerHTML || ""  
-		for(let attr in attributes) {
-			element[attr] = attributes[attr]
-		}
-		return element
+      let element = document.createElement(type);
+      element.innerHTML = innerHTML || '';
+      for (let attr in attributes) {
+        element[attr] = attributes[attr];
+      }
+      return element;
     }
 
-  function modifySiblings(modification, options, event) {
-    event = polyfillEvent(event)
-    const target = event.currentTarget
-    const siblings = target.parentNode.childNodes 
-    siblings.forEach(function(node) {
-        if(node.nodeType==1 && node!=target) {
-            modification(node, options);
+    function modifySiblings(modification, options, event) {
+      event = polyfillEvent(event);
+      const target = event.currentTarget;
+      const siblings = target.parentNode.childNodes;
+      siblings.forEach(function (node) {
+        if (node.nodeType == 1 && node != target) {
+          modification(node, options);
         }
-    })
-  }
+      });
+    }
 
-  let delayLoop;
+    // let delayLoop;
 
-  function addClass(node, options) {
-      const classes = node.className.split(" ");
-      options.forEach(function(classToAdd) {
-          if(!classes.includes(classToAdd))
-              node.className += " " + classToAdd;
-          })
-  }
+    function addClass(node, options) {
+      const classes = node.className.split(' ');
+      options.forEach(function (classToAdd) {
+        if (!classes.includes(classToAdd)) node.className += ' ' + classToAdd;
+      });
+    }
 
-  function removeClass(node, options) {
-      const classes = node.className.split(" ").filter(function(clss) {
-          return !options.includes(clss);
+    function removeClass(node, options) {
+      const classes = node.className.split(' ').filter(function (clss) {
+        return !options.includes(clss);
       });
 
-      node.className = classes.join(" ");
-  }
-
-
-  function polyfillEvent(event) {
-		return (event || window.event)
-	}
-
-  
-  function changeImg(node, counter, options) {
-      const photo = state.albumsInfo()[node.id.split('-')[1]].photos[counter]
-
-      node.style.backgroundImage = `url(${ photo })`;
-  }
-
-  function toggleNav() {
-    const { navigation } = navElements()
-    if(!navigation.style.display || navigation.style.display=='none') {
-      openNav()
-    } else {
-      closeNav()
+      node.className = classes.join(' ');
     }
-  }
 
-  function navElements() {
-    const navigation = document.getElementById("navigation-list");
-    const iconTop = document.getElementById("burguer-icon1");
-    const iconCenter = document.getElementById("burguer-icon");
-    const iconButtom = document.getElementById("burguer-icon2");
-
-    return { navigation, iconTop, iconCenter, iconButtom } 
-  }
-
-  function openNav() {
-    const { navigation, iconTop, iconCenter, iconButtom } = navElements()
-    navigation.style.display = 'block';
-          
-    iconTop.style.top = '50%';
-    iconTop.style.transform = "rotate(45deg)";
-    iconTop.style.transition = "all 0.3s";
-
-    iconButtom.style.top = '50%';
-    iconButtom.style.transform = "rotate(-45deg)";
-    iconButtom.style.transition = "all 0.3s";
-
-    iconCenter.style.transform = "rotate(-45deg)";
-    iconCenter.style.opacity = "0";
-    iconCenter.style.transition = "all 0.3s";
-  }
-
-  function closeNav() {
-    const { navigation, iconTop, iconCenter, iconButtom } = navElements()
-    if(navigation.offsetWidth < window.innerWidth + 150 && navigation.offsetWidth > window.innerWidth - 150) {
-      navigation.style.display = 'none';
+    function polyfillEvent(event) {
+      return event || window.event;
     }
-          
-    iconTop.style.top = 'calc(50% - 1.8em)';
-    iconTop.style.transform = "rotate(0deg)";
-    iconTop.style.transition = "all 0.3s";
 
-    iconButtom.style.top = 'calc(50% + 1.8em)';
-    iconButtom.style.transform = "rotate(0deg)";
-    iconButtom.style.transition = "all 0.3s";
+    function changeImg(node, counter, options) {
+      const photo = state.albumsInfo()[node.id.split('-')[1]].photos[counter];
 
-    iconCenter.style.transform = "rotate(0deg)";
-    iconCenter.style.opacity = "1";
-    iconCenter.style.transition = "all 0.3s";
-  }
+      node.style.backgroundImage = `url(${photo})`;
+    }
 
-  function request(type, url, info = {}) {
-		return new Promise((resolve, reject) => {
-			let req = new XMLHttpRequest();      
-			req.open(type, url, true);
-			req.onreadystatechange = function () {
-				if (this.readyState == 4) {
-					if(this.status >= 200 && this.status < 300)
-            resolve(JSON.parse(this.responseText).data)
-					reject(JSON.parse(this.responseText))
-        }
-			}
-			req.send()
-		})
-	}
-</script>
+    function toggleNav() {
+      const elements = navElements();
+      if (
+        !elements.navigation.style.display ||
+        elements.navigation.style.display == 'none'
+      ) {
+        openNav(elements);
+      } else {
+        closeNav(elements);
+      }
+    }
+
+    function navElements() {
+      const navigation = document.getElementById('navigation-list');
+      const iconTop = document.getElementById('burguer-icon1');
+      const iconCenter = document.getElementById('burguer-icon');
+      const iconButtom = document.getElementById('burguer-icon2');
+
+      return { navigation, iconTop, iconCenter, iconButtom };
+    }
+
+    function openNav({ navigation, iconTop, iconCenter, iconButtom }) {
+      navigation.style.display = 'block';
+
+      iconTop.style.top = '50%';
+      iconTop.style.transform = 'rotate(45deg)';
+      iconTop.style.transition = 'all 0.3s';
+
+      iconButtom.style.top = '50%';
+      iconButtom.style.transform = 'rotate(-45deg)';
+      iconButtom.style.transition = 'all 0.3s';
+
+      iconCenter.style.transform = 'rotate(-45deg)';
+      iconCenter.style.opacity = '0';
+      iconCenter.style.transition = 'all 0.3s';
+    }
+
+    function closeNav({ navigation, iconTop, iconCenter, iconButtom }) {
+      if (
+        navigation.offsetWidth < window.innerWidth + 150 &&
+        navigation.offsetWidth > window.innerWidth - 150
+      ) {
+        navigation.style.display = 'none';
+      }
+
+      iconTop.style.top = 'calc(50% - 1.8em)';
+      iconTop.style.transform = 'rotate(0deg)';
+      iconTop.style.transition = 'all 0.3s';
+
+      iconButtom.style.top = 'calc(50% + 1.8em)';
+      iconButtom.style.transform = 'rotate(0deg)';
+      iconButtom.style.transition = 'all 0.3s';
+
+      iconCenter.style.transform = 'rotate(0deg)';
+      iconCenter.style.opacity = '1';
+      iconCenter.style.transition = 'all 0.3s';
+    }
+
+    function request(type, url, info = {}) {
+      return new Promise((resolve, reject) => {
+        let req = new XMLHttpRequest();
+        req.open(type, url, true);
+        req.onreadystatechange = function () {
+          if (this.readyState == 4) {
+            if (this.status >= 200 && this.status < 300)
+              resolve(JSON.parse(this.responseText).data);
+            reject(JSON.parse(this.responseText));
+          }
+        };
+        req.send();
+      });
+    }
+  </script>
 </html>
