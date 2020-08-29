@@ -310,6 +310,7 @@
       font-style: italic;
       color: #707070;
       font-family: 'Cormorant Garamond', serif;
+      margin-left: 200px;
     }
     section#about div p {
       font-size: 50px;
@@ -393,14 +394,38 @@
       }
     }
 
+    .about-text-wrapper {
+      display: flex;
+          align-items: center;
+          justify-content: space-around;
+          padding: 25px;
+          margin: 10px auto 5px;
+          width: 90%;
+    }
+
     @media (-webkit-min-device-pixel-ratio: 2),
       (min-resolution: 192dpi),
       (max-width: 57em) {
-      section,
-      section#about {
-        width: 100%;
-        padding: 15em 20px 150px;
-      }
+        section#about h3 span {
+          margin-left: 0;
+        }
+
+        .about-text-wrapper {
+          display: block;
+          padding: 25px;
+          margin: 0;
+          width: 100%;
+        }
+
+        section#about div p {
+          text-align: justify;
+          padding: 10px;
+        }
+        section,
+        section#about {
+          width: 100%;
+          padding: 15em 20px 150px;
+        }
 
       section a {
         font-size: 2.5em;
@@ -409,29 +434,30 @@
       section#about h3 {
         text-align: right;
         font-weight: bold;
+        margin-bottom: 50px;
       }
 
       section#about div p {
         width: 100%;
-        margin: 10px;
-        font-size: 4.7em;
-        z-index: 100;
+        margin: 50px 10px;
+        font-size: 4em;
       }
 
       section#about a#about-img {
-        width: 1em;
-        overflow-y: unset;
+        width: 100%;
+        max-width: unset;
+        height: unset
       }
 
       section#about a#about-img img {
-        width: 16em;
-        position: relative;
-        right: 10em;
-        filter: grayscale(20%) contrast(80%) opacity(60%);
+        width: 100%;
+        position: unset;
+        right: unset;
+        filter: unset;
       }
 
       section#about p#about-end {
-        margin: 120px auto;
+        margin: 0px auto 120px;
         font-size: 3.7em;
         z-index: 100;
         position: relative;
@@ -621,21 +647,13 @@
     </header>
     <section id="about">
       <h3>
-        &emsp;&emsp;<span>C</span>olombian photographer and filmmaker based in
+        <span>C</span>olombian photographer and filmmaker based in
         Miami, Florida.
       </h3>
-      <div
-        style="
-          display: flex;
-          align-items: center;
-          justify-content: space-around;
-          padding: 25px;
-          margin: 10px auto 5px;
-          width: 90%;
-        "
+      <div class="about-text-wrapper"
       >
         <p>
-          His career started as a photojournalist where he developed a talent to
+          My career started as a photojournalist where I developed a talent to
           capture life moments and peoples best facets.
         </p>
         <a id="about-img">
